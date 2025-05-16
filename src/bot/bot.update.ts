@@ -23,6 +23,35 @@ export class BotUpdate {
     return this.botService.start(ctx);
   }
 
+  @Hears('Mijoz')
+  async onCustomerSelect(@Ctx() ctx: Context) {
+    this.logger.log("User selected Mijoz");
+    return this.botService.handleUserType(ctx, 'Mijoz');
+  }
+
+  @Hears('Usta')
+  async onMasterSelect(@Ctx() ctx: Context) {
+    this.logger.log("User selected Usta");
+    await this.botService.handleUserType(ctx, 'Usta');
+    // After registration, show master menu
+    await this.botService.showMasterMenu(ctx);
+  }
+
+  @Hears('\u001f3c6 Reytingni ko‘rish')
+  async onShowRating(@Ctx() ctx: Context) {
+    await this.botService.showMasterRating(ctx);
+  }
+
+  @Hears('\u001f527 Ma’lumotlarni o‘zgartirish')
+  async onChangeInfo(@Ctx() ctx: Context) {
+    await this.botService.changeMasterInfo(ctx);
+  }
+
+  @Hears('\u001f465 Mijozlar ro‘yxati')
+  async onListCustomers(@Ctx() ctx: Context) {
+    await this.botService.listMasterCustomers(ctx);
+  }
+
   // @Command("main")
   // async onMain(@Ctx() ctx: Context) {
   //   return this.botService.sendMainMenu(ctx);
